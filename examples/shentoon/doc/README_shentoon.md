@@ -6,11 +6,11 @@
 
 主要文件：
 
-- `models/mjcf/tasks_mmk2/shentoon1.xml`：Shentoon 3DGS 查看器默认使用的场景。
-- `models/mjcf/tasks_mmk2/shentoon2.xml`：当前导航和 ROS2 发布使用的仓库货架场景。
-- `examples/tasks_mmk2/view_shentoon_3dgs.py`：Shentoon 场景查看器，支持 3DGS 对象模型。
-- `examples/tasks_mmk2/shentoon2_nav_to_shelf.py`：MMK2 底盘导航任务，从起点经过障碍区域，到达 picking zone，再前往 delivery zone。
-- `examples/ros2/shentoon2_mmk2_ros2.py`：Shentoon2 场景的 ROS2 发布节点，发布底盘里程计、关节状态、相机图像、TF 和 RViz Marker。
+- `examples/shentoon/mjcf/shentoon1.xml`：Shentoon 3DGS 查看器默认使用的场景。
+- `examples/shentoon/mjcf/shentoon2.xml`：当前导航和 ROS2 发布使用的仓库货架场景。
+- `examples/shentoon/view_shentoon_3dgs.py`：Shentoon 场景查看器，支持 3DGS 对象模型。
+- `examples/shentoon/shentoon2_nav_to_shelf.py`：MMK2 底盘导航任务，从起点经过障碍区域，到达 picking zone，再前往 delivery zone。
+- `examples/shentoon/shentoon2_mmk2_ros2.py`：Shentoon2 场景的 ROS2 发布节点，发布底盘里程计、关节状态、相机图像、TF 和 RViz Marker。
 
 ## Shentoon2 场景
 
@@ -37,15 +37,15 @@
 运行导航 demo：
 
 ```bash
-cd /home/hunter/DISCOVERSE_web/DISCOVERSE
+cd /home/hunter/shentoon_detection
 conda activate p7
-python examples/tasks_mmk2/shentoon2_nav_to_shelf.py
+python examples/shentoon/shentoon2_nav_to_shelf.py
 ```
 
 无窗口运行：
 
 ```bash
-python examples/tasks_mmk2/shentoon2_nav_to_shelf.py --headless
+python examples/shentoon/shentoon2_nav_to_shelf.py --headless
 ```
 
 默认任务流程：
@@ -60,7 +60,7 @@ python examples/tasks_mmk2/shentoon2_nav_to_shelf.py --headless
 常用参数：
 
 ```bash
-python examples/tasks_mmk2/shentoon2_nav_to_shelf.py --headless \
+python examples/shentoon/shentoon2_nav_to_shelf.py --headless \
   --pick-target=-1.55,-0.45 \
   --delivery-target=3.55,3.12 \
   --max-time 100
@@ -69,7 +69,7 @@ python examples/tasks_mmk2/shentoon2_nav_to_shelf.py --headless \
 路径点参数使用分号分隔：
 
 ```bash
-python examples/tasks_mmk2/shentoon2_nav_to_shelf.py --headless \
+python examples/shentoon/shentoon2_nav_to_shelf.py --headless \
   --pick-waypoints="-1.9,-3.25;0.35,-3.10;2.45,-2.75;2.35,0.10" \
   --delivery-waypoints="-0.35,-1.70;2.55,-1.45;3.15,0.85;3.45,2.50"
 ```
@@ -86,27 +86,27 @@ python examples/tasks_mmk2/shentoon2_nav_to_shelf.py --headless \
 查看 Shentoon 场景：
 
 ```bash
-cd /home/hunter/DISCOVERSE_web/DISCOVERSE
+cd /home/hunter/shentoon_detection
 conda activate p7
-python examples/tasks_mmk2/view_shentoon_3dgs.py
+python examples/shentoon/view_shentoon_3dgs.py
 ```
 
 查看 `shentoon2.xml`：
 
 ```bash
-python examples/tasks_mmk2/view_shentoon_3dgs.py --mjcf mjcf/tasks_mmk2/shentoon2.xml
+python examples/shentoon/view_shentoon_3dgs.py --mjcf examples/shentoon/mjcf/shentoon2.xml
 ```
 
 关闭 3DGS，仅使用 MuJoCo 渲染：
 
 ```bash
-python examples/tasks_mmk2/view_shentoon_3dgs.py --no-gs --mjcf mjcf/tasks_mmk2/shentoon2.xml
+python examples/shentoon/view_shentoon_3dgs.py --no-gs --mjcf examples/shentoon/mjcf/shentoon2.xml
 ```
 
 只加载指定 3DGS 物体：
 
 ```bash
-python examples/tasks_mmk2/view_shentoon_3dgs.py --only drill,hat
+python examples/shentoon/view_shentoon_3dgs.py --only drill,hat
 ```
 
 注意：如果启用 3DGS 且本地缺少模型，可能需要 Hugging Face 登录或设置 `HUGGINGFACE_HUB_TOKEN`。纯 MuJoCo 查看请使用 `--no-gs`。
@@ -116,14 +116,14 @@ python examples/tasks_mmk2/view_shentoon_3dgs.py --only drill,hat
 启动 Shentoon2 ROS2 发布节点：
 
 ```bash
-cd /home/hunter/DISCOVERSE_web/DISCOVERSE
+cd /home/hunter/shentoon_detection
 conda activate p7
 source /opt/ros/jazzy/setup.zsh
 export ROS_DOMAIN_ID=99
 unset RMW_IMPLEMENTATION
 export MUJOCO_GL=egl
 
-python examples/ros2/shentoon2_mmk2_ros2.py --headless
+python examples/shentoon/shentoon2_mmk2_ros2.py --headless
 ```
 
 如果系统已经安装 CycloneDDS，也可以使用：

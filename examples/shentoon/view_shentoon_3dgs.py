@@ -125,8 +125,8 @@ def main():
     parser = argparse.ArgumentParser(description="View shentoon.xml with 3DGS rendering.")
     parser.add_argument(
         "--mjcf",
-        default="mjcf/tasks_mmk2/shentoon1.xml",
-        help="MJCF path, relative to models/ or absolute.",
+        default="examples/shentoon/mjcf/shentoon1.xml",
+        help="MJCF path, relative to the repo root, relative to models/, or absolute.",
     )
     parser.add_argument("--no-gs", action="store_true", help="Disable 3DGS and use MuJoCo rendering.")
     parser.add_argument("--headless", action="store_true", help="Run without opening a window.")

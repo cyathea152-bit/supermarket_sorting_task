@@ -1,6 +1,6 @@
 <mujoco model="jishijiao_r2_2">
-<include file="../mobile_chassis/mmk2/mmk2_options.xml"/>
-<include file="../mobile_chassis/mmk2/mmk2_dependencies.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/mobile_chassis/mmk2/mmk2_options.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/mobile_chassis/mmk2/mmk2_dependencies.xml"/>
 
   <visual>
     <global offwidth="1920" offheight="1080"/>
@@ -16,15 +16,15 @@
 
 
 
-<include file="../object/tuopan_dependencies.xml"/>
-<include file="../object/whitebox_dependencies.xml"/>
-<include file="../object/brownbox_dependencies.xml"/>
-<include file="../object/pinkbox_dependencies.xml"/>
-<include file="../object/hat_dependencies.xml"/>
-<include file="../object/blue_dependencies.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/object/tuopan_dependencies.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/object/whitebox_dependencies.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/object/brownbox_dependencies.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/object/pinkbox_dependencies.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/object/hat_dependencies.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/object/blue_dependencies.xml"/>
 
 
-<compiler angle="radian" meshdir="../../meshes" texturedir="../../textures/"/>
+<compiler angle="radian" meshdir="/home/hunter/shentoon_detection/models/meshes" texturedir="/home/hunter/shentoon_detection/models/textures/"/>
 
 <default>
 <default class="obj_visual">
@@ -46,7 +46,7 @@
       <site name="site_round3_target" pos="-1.0  0.15 0.75" size="0.005" rgba="0 0 0 1" type="sphere"/>
 <body name="mmk2" pos="0 0 0">
 <joint type="free" frictionloss="0.0001"/>
-<include file="../mobile_chassis/mmk2/mmk2.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/mobile_chassis/mmk2/mmk2.xml"/>
 </body>
 
 <!--  table  -->
@@ -63,13 +63,13 @@
 <!-- 头盔 -->
   <body name="hat" pos="0.93 -0.45 0.752725" euler="1.578 -1.578 0 "  >
       <!-- <joint type="free" frictionloss="0.00005" /> -->
-      <include file="../object/hat.xml"/>
+      <include file="/home/hunter/shentoon_detection/models/mjcf/object/hat.xml"/>
       <geom type="cylinder" pos="0 0 0" size="0.1 0.002" quat="-0.707 0.707 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
     </body>
 <!-- 物料盒 -->
   <body name="blue" pos="0.93 -0.70 0.759297" euler="1.578 -1.578 0 " >
       <!-- <joint type="free" frictionloss="0.00005" /> -->
-      <include file="../object/blue.xml"/>
+      <include file="/home/hunter/shentoon_detection/models/mjcf/object/blue.xml"/>
       <geom type="cylinder" pos="0 0.0005 0" size="0.06 0.002" quat="-0.707 0.8 0 0"/>
     </body>
 
@@ -127,7 +127,7 @@
   <!-- <body name="yellowbox" pos="0.745 0.11 0.74" euler="0 0 1.5708" > -->
 
       <joint type="free" frictionloss="0.00005" />
-      <include file="../object/whitebox.xml"/>
+      <include file="/home/hunter/shentoon_detection/models/mjcf/object/whitebox.xml"/>
       <geom type="cylinder" pos="0 0 0" size="0.1 0.002" euler="0 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
       <geom type="cylinder" pos="0 0.15 0.1" size="0.1 0.002" euler="1.57 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
       <geom type="cylinder" pos="0 -0.15 0.1" size="0.1 0.002" euler="1.57 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
@@ -135,7 +135,7 @@
 
     <body name="brownbox" pos="-0.8 1.33 0.742000" euler="0 0 1.5708" >
       <joint type="free" frictionloss="0.00005" />
-      <include file="../object/brownbox.xml"/>
+      <include file="/home/hunter/shentoon_detection/models/mjcf/object/brownbox.xml"/>
       <geom type="cylinder" pos="0 0 0" size="0.1 0.002" euler="0 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
       <geom type="cylinder" pos="0 0.15 0.1" size="0.1 0.002" euler="1.57 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
       <geom type="cylinder" pos="0 -0.15 0.1" size="0.1 0.002" euler="1.57 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
@@ -143,7 +143,7 @@
 
      <body name="pinkbox" pos="-0.8 1.33 0.422000" euler="0 0 1.5708" >
       <joint type="free" frictionloss="0.00005" />
-      <include file="../object/pinkbox.xml"/>
+      <include file="/home/hunter/shentoon_detection/models/mjcf/object/pinkbox.xml"/>
       <geom type="cylinder" pos="0 0 0" size="0.1 0.002" euler="0 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
       <geom type="cylinder" pos="0 0.15 0.1" size="0.1 0.002" euler="1.57 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
       <geom type="cylinder" pos="0 -0.15 0.1" size="0.1 0.002" euler="1.57 0 0" solimp="0.999 0.995 0.001" solref="0.001 1"/>
@@ -152,10 +152,10 @@
 
 </worldbody>
 <actuator>
-<include file="../mobile_chassis/mmk2/mmk2_control.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/mobile_chassis/mmk2/mmk2_control.xml"/>
 </actuator>
 <sensor>
-<include file="../mobile_chassis/mmk2/mmk2_sensor.xml"/>
+<include file="/home/hunter/shentoon_detection/models/mjcf/mobile_chassis/mmk2/mmk2_sensor.xml"/>
 </sensor>
 
 </mujoco>

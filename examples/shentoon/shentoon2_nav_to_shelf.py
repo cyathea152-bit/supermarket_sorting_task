@@ -157,7 +157,7 @@ class Shentoon2NavDemo(MMK2Base):
 
 def build_cfg(args):
     cfg = MMK2Cfg()
-    cfg.mjcf_file_path = "mjcf/tasks_mmk2/shentoon2.xml"
+    cfg.mjcf_file_path = "examples/shentoon/mjcf/shentoon2.xml"
     cfg.use_gaussian_renderer = args.use_gs
     cfg.sync = not args.headless
     cfg.headless = args.headless

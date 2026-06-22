@@ -418,7 +418,7 @@ class Shentoon2MMK2ROS2(MMK2Base, Node):
 
 def build_config(args):
     cfg = MMK2Cfg()
-    cfg.mjcf_file_path = "mjcf/tasks_mmk2/shentoon2.xml"
+    cfg.mjcf_file_path = "examples/shentoon/mjcf/shentoon2.xml"
     cfg.use_gaussian_renderer = args.use_gs
     cfg.lidar_s2_sim = args.lidar
     cfg.sync = not args.headless
