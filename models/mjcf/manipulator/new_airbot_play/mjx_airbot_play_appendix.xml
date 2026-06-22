@@ -1,0 +1,5 @@
+<mujocoinclude>
+  <equality>
+    <joint joint1="endleft" joint2="endright" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+  </equality>
+</mujocoinclude>

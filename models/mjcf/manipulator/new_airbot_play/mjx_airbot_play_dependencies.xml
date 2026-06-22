@@ -1,0 +1,51 @@
+<mujocoinclude>
+  <!-- 与 airplay_pick_blocks 共用 meshdir="../../../meshes/" 时，需将本目录下 *.obj 拷到 meshes/new_airbot_play/ -->
+  <default>
+    <default class="airbot_play">
+      <material specular="0.5" shininess="0.25"/>
+      <joint armature="0.1" damping="1" axis="0 0 1" range="-3.151 2.089"/>
+      <general dyntype="none" biastype="affine"/>
+      <position forcerange="-100 100"/>
+      <default class="finger">
+        <joint axis="0 1 0" type="slide" range="0 0.04"/>
+      </default>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="collision">
+        <geom group="3" condim="3" solimp="0.99 0.995 0.01" solref="0.01 1" friction="1 0.005 0.0001"/>
+      </default>
+      <default class="joint1"><joint range="-3.151 2.089" actuatorfrcrange="-24 24" damping="5"/></default>
+      <default class="joint2"><joint range="-2.963 0.181" actuatorfrcrange="-24 24" damping="5"/></default>
+      <default class="joint3"><joint range="-0.094 3.161" actuatorfrcrange="-24 24" damping="5"/></default>
+      <default class="joint4"><joint range="-3.012 4.711" actuatorfrcrange="-16 16" damping="2"/></default>
+      <default class="joint5"><joint range="-1.859 1.859" actuatorfrcrange="-16 16" damping="2"/></default>
+      <default class="joint6"><joint range="-4.711 3.017" actuatorfrcrange="-16 16" damping="2"/></default>
+      <default class="finger_left"><joint axis="0 1 0" range="0 0.04" type="slide" actuatorfrcrange="-5 5" damping="2"/></default>
+      <default class="finger_right"><joint axis="0 -1 0" range="0 0.04" type="slide" actuatorfrcrange="-5 5" damping="2"/></default>
+    </default>
+    <site size="0.001" group="3"/>
+  </default>
+
+  <asset>
+    <material name="Paint_Matte_Black" specular="0.5" shininess="0.5" rgba="0.00111266039 0.00111266039 0.00111266039 1.0"/>
+    <material name="Paint_Metallic_White" specular="0.5" shininess="0.5" rgba="0.928523183 0.928523183 0.928523123 1.0"/>
+    <material name="Gree_Light_Base" specular="0.5" shininess="0.5" rgba="0.6 1 1 1"/>
+  </asset>
+  <asset>
+    <mesh name="arm_base_0" file="new_airbot_play/arm_base_0.obj"/>
+    <mesh name="arm_base_1" file="new_airbot_play/arm_base_1.obj"/>
+    <mesh name="link1" file="new_airbot_play/link1.obj"/>
+    <mesh name="link2_0" file="new_airbot_play/link2_0.obj"/>
+    <mesh name="link2_1" file="new_airbot_play/link2_1.obj"/>
+    <mesh name="link3_0" file="new_airbot_play/link3_0.obj"/>
+    <mesh name="link3_1" file="new_airbot_play/link3_1.obj"/>
+    <mesh name="link4" file="new_airbot_play/link4.obj"/>
+    <mesh name="link5_0" file="new_airbot_play/link5_0.obj"/>
+    <mesh name="link5_1" file="new_airbot_play/link5_1.obj"/>
+    <mesh name="link6" file="new_airbot_play/link6.obj"/>
+    <mesh name="camera_stand" file="new_airbot_play/camera_stand.obj"/>
+    <mesh name="left" file="new_airbot_play/left.obj"/>
+    <mesh name="right" file="new_airbot_play/right.obj"/>
+  </asset>
+</mujocoinclude>

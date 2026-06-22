@@ -1,0 +1,38 @@
+
+<mujocoinclude>
+  <geom mesh="erduo-" rgba="0.5 0.5 0.5 1" class="obj_visual"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_0" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_1" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_2" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_3" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_4" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_5" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_6" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_7" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_8" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_9" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_10" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_11" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_12" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_13" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_14" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_15" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_16" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_17" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_18" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_19" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_20" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_21" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_22" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_23" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_24" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_25" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_26" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_27" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_28" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_29" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_30" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_31" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_32" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="erduo-_part_33" class="obj_collision"/>
+</mujocoinclude>

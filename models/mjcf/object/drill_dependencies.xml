@@ -1,0 +1,5 @@
+nde<mujocoinclude>
+  <asset>
+    <mesh name="drill" file="object/drill/drill.obj" />
+  </asset>
+</mujocoinclude>

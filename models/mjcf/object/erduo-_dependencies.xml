@@ -1,0 +1,40 @@
+
+<mujocoinclude>
+  <asset>
+    <mesh name="erduo-" file="object/erduo-/erduo-.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_0" file="object/erduo-/erduo-/part_0.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_1" file="object/erduo-/erduo-/part_1.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_2" file="object/erduo-/erduo-/part_2.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_3" file="object/erduo-/erduo-/part_3.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_4" file="object/erduo-/erduo-/part_4.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_5" file="object/erduo-/erduo-/part_5.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_6" file="object/erduo-/erduo-/part_6.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_7" file="object/erduo-/erduo-/part_7.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_8" file="object/erduo-/erduo-/part_8.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_9" file="object/erduo-/erduo-/part_9.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_10" file="object/erduo-/erduo-/part_10.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_11" file="object/erduo-/erduo-/part_11.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_12" file="object/erduo-/erduo-/part_12.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_13" file="object/erduo-/erduo-/part_13.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_14" file="object/erduo-/erduo-/part_14.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_15" file="object/erduo-/erduo-/part_15.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_16" file="object/erduo-/erduo-/part_16.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_17" file="object/erduo-/erduo-/part_17.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_18" file="object/erduo-/erduo-/part_18.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_19" file="object/erduo-/erduo-/part_19.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_20" file="object/erduo-/erduo-/part_20.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_21" file="object/erduo-/erduo-/part_21.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_22" file="object/erduo-/erduo-/part_22.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_23" file="object/erduo-/erduo-/part_23.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_24" file="object/erduo-/erduo-/part_24.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_25" file="object/erduo-/erduo-/part_25.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_26" file="object/erduo-/erduo-/part_26.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_27" file="object/erduo-/erduo-/part_27.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_28" file="object/erduo-/erduo-/part_28.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_29" file="object/erduo-/erduo-/part_29.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_30" file="object/erduo-/erduo-/part_30.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_31" file="object/erduo-/erduo-/part_31.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_32" file="object/erduo-/erduo-/part_32.obj" scale="1 1 1"/>
+    <mesh name="erduo-_part_33" file="object/erduo-/erduo-/part_33.obj" scale="1 1 1"/>
+  </asset>
+</mujocoinclude>

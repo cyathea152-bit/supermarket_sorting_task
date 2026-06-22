@@ -1,0 +1,5 @@
+<mujocoinclude>
+  <asset>
+    <mesh name="toolbox" file="object/toolbox/toolbox.obj" />
+  </asset>
+</mujocoinclude>

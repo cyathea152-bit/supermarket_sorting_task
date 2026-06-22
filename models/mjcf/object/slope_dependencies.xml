@@ -1,0 +1,5 @@
+<mujocoinclude>
+  <asset>
+    <mesh name="slope" file="object/slope/slope.obj" />
+  </asset>
+</mujocoinclude>

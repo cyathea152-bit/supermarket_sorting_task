@@ -1,0 +1,5 @@
+<mujocoinclude>
+  <asset>
+    <mesh name="bridge" file="object/bridge/bridge.STL" scale="0.001 0.001 0.001"/>
+  </asset>
+</mujocoinclude>

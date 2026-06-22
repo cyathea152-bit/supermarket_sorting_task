@@ -1,0 +1,5 @@
+<mujocoinclude>
+  <asset>
+    <mesh name="tixing" file="object/tixing/tixing.obj" />
+  </asset>
+</mujocoinclude>

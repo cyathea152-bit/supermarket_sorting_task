@@ -1,0 +1,4 @@
+<mujocoinclude>
+  <inertial pos="0 0 0" mass="0.05" diaginertia="0.01 0.01 0.005" />
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="whitebox" />
+</mujocoinclude>

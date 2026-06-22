@@ -1,0 +1,49 @@
+
+<mujocoinclude>
+  <asset>
+    <mesh name="quejiao_2" file="object/quejiao_2/quejiao_2.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_0" file="object/quejiao_2/quejiao_2/part_0.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_1" file="object/quejiao_2/quejiao_2/part_1.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_2" file="object/quejiao_2/quejiao_2/part_2.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_3" file="object/quejiao_2/quejiao_2/part_3.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_4" file="object/quejiao_2/quejiao_2/part_4.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_5" file="object/quejiao_2/quejiao_2/part_5.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_6" file="object/quejiao_2/quejiao_2/part_6.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_7" file="object/quejiao_2/quejiao_2/part_7.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_8" file="object/quejiao_2/quejiao_2/part_8.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_9" file="object/quejiao_2/quejiao_2/part_9.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_10" file="object/quejiao_2/quejiao_2/part_10.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_11" file="object/quejiao_2/quejiao_2/part_11.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_12" file="object/quejiao_2/quejiao_2/part_12.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_13" file="object/quejiao_2/quejiao_2/part_13.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_14" file="object/quejiao_2/quejiao_2/part_14.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_15" file="object/quejiao_2/quejiao_2/part_15.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_16" file="object/quejiao_2/quejiao_2/part_16.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_17" file="object/quejiao_2/quejiao_2/part_17.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_18" file="object/quejiao_2/quejiao_2/part_18.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_19" file="object/quejiao_2/quejiao_2/part_19.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_20" file="object/quejiao_2/quejiao_2/part_20.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_21" file="object/quejiao_2/quejiao_2/part_21.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_22" file="object/quejiao_2/quejiao_2/part_22.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_23" file="object/quejiao_2/quejiao_2/part_23.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_24" file="object/quejiao_2/quejiao_2/part_24.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_25" file="object/quejiao_2/quejiao_2/part_25.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_26" file="object/quejiao_2/quejiao_2/part_26.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_27" file="object/quejiao_2/quejiao_2/part_27.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_28" file="object/quejiao_2/quejiao_2/part_28.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_29" file="object/quejiao_2/quejiao_2/part_29.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_30" file="object/quejiao_2/quejiao_2/part_30.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_31" file="object/quejiao_2/quejiao_2/part_31.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_32" file="object/quejiao_2/quejiao_2/part_32.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_33" file="object/quejiao_2/quejiao_2/part_33.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_34" file="object/quejiao_2/quejiao_2/part_34.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_35" file="object/quejiao_2/quejiao_2/part_35.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_36" file="object/quejiao_2/quejiao_2/part_36.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_37" file="object/quejiao_2/quejiao_2/part_37.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_38" file="object/quejiao_2/quejiao_2/part_38.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_39" file="object/quejiao_2/quejiao_2/part_39.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_40" file="object/quejiao_2/quejiao_2/part_40.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_41" file="object/quejiao_2/quejiao_2/part_41.obj" scale="1 1 1"/>
+    <mesh name="quejiao_2_part_42" file="object/quejiao_2/quejiao_2/part_42.obj" scale="1 1 1"/>
+  </asset>
+</mujocoinclude>

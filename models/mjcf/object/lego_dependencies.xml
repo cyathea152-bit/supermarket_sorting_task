@@ -1,0 +1,5 @@
+<mujocoinclude>
+  <asset>
+    <mesh name="lego" file="object/lego/lego.obj" />
+  </asset>
+</mujocoinclude>

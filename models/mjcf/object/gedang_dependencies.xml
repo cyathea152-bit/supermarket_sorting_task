@@ -1,0 +1,36 @@
+
+<mujocoinclude>
+  <asset>
+    <mesh name="gedang" file="object/gedang/gedang.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_0" file="object/gedang/gedang/part_0.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_1" file="object/gedang/gedang/part_1.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_2" file="object/gedang/gedang/part_2.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_3" file="object/gedang/gedang/part_3.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_4" file="object/gedang/gedang/part_4.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_5" file="object/gedang/gedang/part_5.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_6" file="object/gedang/gedang/part_6.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_7" file="object/gedang/gedang/part_7.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_8" file="object/gedang/gedang/part_8.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_9" file="object/gedang/gedang/part_9.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_10" file="object/gedang/gedang/part_10.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_11" file="object/gedang/gedang/part_11.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_12" file="object/gedang/gedang/part_12.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_13" file="object/gedang/gedang/part_13.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_14" file="object/gedang/gedang/part_14.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_15" file="object/gedang/gedang/part_15.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_16" file="object/gedang/gedang/part_16.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_17" file="object/gedang/gedang/part_17.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_18" file="object/gedang/gedang/part_18.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_19" file="object/gedang/gedang/part_19.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_20" file="object/gedang/gedang/part_20.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_21" file="object/gedang/gedang/part_21.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_22" file="object/gedang/gedang/part_22.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_23" file="object/gedang/gedang/part_23.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_24" file="object/gedang/gedang/part_24.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_25" file="object/gedang/gedang/part_25.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_26" file="object/gedang/gedang/part_26.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_27" file="object/gedang/gedang/part_27.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_28" file="object/gedang/gedang/part_28.obj" scale="1 1 1"/>
+    <mesh name="gedang_part_29" file="object/gedang/gedang/part_29.obj" scale="1 1 1"/>
+  </asset>
+</mujocoinclude>

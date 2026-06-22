@@ -1,0 +1,5 @@
+<mujocoinclude>
+  <asset>
+    <mesh name="hat" file="object/hat/hat.obj" />
+  </asset>
+</mujocoinclude>

@@ -1,0 +1,47 @@
+
+<mujocoinclude>
+  <geom mesh="quejiao_2" rgba="0.5 0.5 0.5 1" class="obj_visual"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_0" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_1" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_2" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_3" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_4" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_5" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_6" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_7" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_8" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_9" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_10" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_11" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_12" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_13" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_14" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_15" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_16" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_17" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_18" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_19" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_20" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_21" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_22" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_23" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_24" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_25" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_26" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_27" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_28" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_29" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_30" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_31" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_32" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_33" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_34" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_35" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_36" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_37" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_38" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_39" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_40" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_41" mass="0.0005" class="obj_collision"/>
+  <geom type="mesh" rgba="0.5 0.5 0.5 1" mesh="quejiao_2_part_42" mass="0.0005" class="obj_collision"/>
+</mujocoinclude>
