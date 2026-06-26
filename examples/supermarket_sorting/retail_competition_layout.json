@@ -1,0 +1,632 @@
+[
+  {
+    "shelf": "A",
+    "level": "L1",
+    "column": "C1",
+    "aruco_id": 0,
+    "body": "slot_A_L1_C1_qingfengchouzhi",
+    "object_kind": "qingfengchouzhi",
+    "gs_ply": "shentoon/qingfengchouzhi_fit.ply",
+    "world_position": [
+      -2.265,
+      3.415,
+      0.6375
+    ]
+  },
+  {
+    "shelf": "A",
+    "level": "L1",
+    "column": "C2",
+    "aruco_id": 1,
+    "body": "slot_A_L1_C2_moshuiping",
+    "object_kind": "moshuiping",
+    "gs_ply": "shentoon/moshuiping_fit.ply",
+    "world_position": [
+      -1.955,
+      3.415,
+      0.665
+    ]
+  },
+  {
+    "shelf": "A",
+    "level": "L1",
+    "column": "C3",
+    "aruco_id": 2,
+    "body": "slot_A_L1_C3_yinlu",
+    "object_kind": "yinlu",
+    "gs_ply": "shentoon/yinlu_congee_fit.ply",
+    "world_position": [
+      -1.645,
+      3.415,
+      0.65075
+    ]
+  },
+  {
+    "shelf": "A",
+    "level": "L2",
+    "column": "C1",
+    "aruco_id": 3,
+    "body": "slot_A_L2_C1_starbucks_box",
+    "object_kind": "starbucks_box",
+    "gs_ply": "shentoon/starbucks_box_fit.ply",
+    "world_position": [
+      -2.265,
+      3.415,
+      0.9875
+    ]
+  },
+  {
+    "shelf": "A",
+    "level": "L2",
+    "column": "C2",
+    "aruco_id": 4,
+    "body": "slot_A_L2_C2_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      -1.955,
+      3.415,
+      0.975
+    ]
+  },
+  {
+    "shelf": "A",
+    "level": "L2",
+    "column": "C3",
+    "aruco_id": 5,
+    "body": "slot_A_L2_C3_starbucks_box",
+    "object_kind": "starbucks_box",
+    "gs_ply": "shentoon/starbucks_box_fit.ply",
+    "world_position": [
+      -1.645,
+      3.415,
+      0.9875
+    ]
+  },
+  {
+    "shelf": "A",
+    "level": "L3",
+    "column": "C1",
+    "aruco_id": 6,
+    "body": "slot_A_L3_C1_qingfengchouzhi",
+    "object_kind": "qingfengchouzhi",
+    "gs_ply": "shentoon/qingfengchouzhi_fit.ply",
+    "world_position": [
+      -2.265,
+      3.415,
+      1.2375
+    ]
+  },
+  {
+    "shelf": "A",
+    "level": "L3",
+    "column": "C2",
+    "aruco_id": 7,
+    "body": "slot_A_L3_C2_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      -1.955,
+      3.415,
+      1.275
+    ]
+  },
+  {
+    "shelf": "A",
+    "level": "L3",
+    "column": "C3",
+    "aruco_id": 8,
+    "body": "slot_A_L3_C3_hualushui",
+    "object_kind": "hualushui",
+    "gs_ply": "shentoon/hualushui_fit.ply",
+    "world_position": [
+      -1.645,
+      3.415,
+      1.35
+    ]
+  },
+  {
+    "shelf": "B",
+    "level": "L1",
+    "column": "C1",
+    "aruco_id": 9,
+    "body": "slot_B_L1_C1_moshuiping",
+    "object_kind": "moshuiping",
+    "gs_ply": "shentoon/moshuiping_fit.ply",
+    "world_position": [
+      -1.288,
+      3.415,
+      0.665
+    ]
+  },
+  {
+    "shelf": "B",
+    "level": "L1",
+    "column": "C2",
+    "aruco_id": 10,
+    "body": "slot_B_L1_C2_yinlu",
+    "object_kind": "yinlu",
+    "gs_ply": "shentoon/yinlu_congee_fit.ply",
+    "world_position": [
+      -0.978,
+      3.415,
+      0.65075
+    ]
+  },
+  {
+    "shelf": "B",
+    "level": "L1",
+    "column": "C3",
+    "aruco_id": 11,
+    "body": "slot_B_L1_C3_yinlu",
+    "object_kind": "yinlu",
+    "gs_ply": "shentoon/yinlu_congee_fit.ply",
+    "world_position": [
+      -0.668,
+      3.415,
+      0.65075
+    ]
+  },
+  {
+    "shelf": "B",
+    "level": "L2",
+    "column": "C1",
+    "aruco_id": 12,
+    "body": "slot_B_L2_C1_moshuiping",
+    "object_kind": "moshuiping",
+    "gs_ply": "shentoon/moshuiping_fit.ply",
+    "world_position": [
+      -1.288,
+      3.415,
+      0.965
+    ]
+  },
+  {
+    "shelf": "B",
+    "level": "L2",
+    "column": "C2",
+    "aruco_id": 13,
+    "body": "slot_B_L2_C2_yinlu",
+    "object_kind": "yinlu",
+    "gs_ply": "shentoon/yinlu_congee_fit.ply",
+    "world_position": [
+      -0.978,
+      3.415,
+      0.95075
+    ]
+  },
+  {
+    "shelf": "B",
+    "level": "L2",
+    "column": "C3",
+    "aruco_id": 14,
+    "body": "slot_B_L2_C3_starbucks_box",
+    "object_kind": "starbucks_box",
+    "gs_ply": "shentoon/starbucks_box_fit.ply",
+    "world_position": [
+      -0.668,
+      3.415,
+      0.9875
+    ]
+  },
+  {
+    "shelf": "B",
+    "level": "L3",
+    "column": "C1",
+    "aruco_id": 15,
+    "body": "slot_B_L3_C1_starbucks_box",
+    "object_kind": "starbucks_box",
+    "gs_ply": "shentoon/starbucks_box_fit.ply",
+    "world_position": [
+      -1.288,
+      3.415,
+      1.2875
+    ]
+  },
+  {
+    "shelf": "B",
+    "level": "L3",
+    "column": "C2",
+    "aruco_id": 16,
+    "body": "slot_B_L3_C2_moshuiping",
+    "object_kind": "moshuiping",
+    "gs_ply": "shentoon/moshuiping_fit.ply",
+    "world_position": [
+      -0.978,
+      3.415,
+      1.265
+    ]
+  },
+  {
+    "shelf": "B",
+    "level": "L3",
+    "column": "C3",
+    "aruco_id": 17,
+    "body": "slot_B_L3_C3_starbucks_box",
+    "object_kind": "starbucks_box",
+    "gs_ply": "shentoon/starbucks_box_fit.ply",
+    "world_position": [
+      -0.668,
+      3.415,
+      1.2875
+    ]
+  },
+  {
+    "shelf": "C",
+    "level": "L1",
+    "column": "C1",
+    "aruco_id": 18,
+    "body": "slot_C_L1_C1_yinlu",
+    "object_kind": "yinlu",
+    "gs_ply": "shentoon/yinlu_congee_fit.ply",
+    "world_position": [
+      -0.31,
+      3.415,
+      0.65075
+    ]
+  },
+  {
+    "shelf": "C",
+    "level": "L1",
+    "column": "C2",
+    "aruco_id": 19,
+    "body": "slot_C_L1_C2_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      0.0,
+      3.415,
+      0.675
+    ]
+  },
+  {
+    "shelf": "C",
+    "level": "L1",
+    "column": "C3",
+    "aruco_id": 20,
+    "body": "slot_C_L1_C3_yinlu",
+    "object_kind": "yinlu",
+    "gs_ply": "shentoon/yinlu_congee_fit.ply",
+    "world_position": [
+      0.31,
+      3.415,
+      0.65075
+    ]
+  },
+  {
+    "shelf": "C",
+    "level": "L2",
+    "column": "C1",
+    "aruco_id": 21,
+    "body": "slot_C_L2_C1_hualushui",
+    "object_kind": "hualushui",
+    "gs_ply": "shentoon/hualushui_fit.ply",
+    "world_position": [
+      -0.31,
+      3.415,
+      1.05
+    ]
+  },
+  {
+    "shelf": "C",
+    "level": "L2",
+    "column": "C2",
+    "aruco_id": 22,
+    "body": "slot_C_L2_C2_moshuiping",
+    "object_kind": "moshuiping",
+    "gs_ply": "shentoon/moshuiping_fit.ply",
+    "world_position": [
+      0.0,
+      3.415,
+      0.965
+    ]
+  },
+  {
+    "shelf": "C",
+    "level": "L2",
+    "column": "C3",
+    "aruco_id": 23,
+    "body": "slot_C_L2_C3_yinlu",
+    "object_kind": "yinlu",
+    "gs_ply": "shentoon/yinlu_congee_fit.ply",
+    "world_position": [
+      0.31,
+      3.415,
+      0.95075
+    ]
+  },
+  {
+    "shelf": "C",
+    "level": "L3",
+    "column": "C1",
+    "aruco_id": 24,
+    "body": "slot_C_L3_C1_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      -0.31,
+      3.415,
+      1.275
+    ]
+  },
+  {
+    "shelf": "C",
+    "level": "L3",
+    "column": "C2",
+    "aruco_id": 25,
+    "body": "slot_C_L3_C2_hualushui",
+    "object_kind": "hualushui",
+    "gs_ply": "shentoon/hualushui_fit.ply",
+    "world_position": [
+      0.0,
+      3.415,
+      1.35
+    ]
+  },
+  {
+    "shelf": "C",
+    "level": "L3",
+    "column": "C3",
+    "aruco_id": 26,
+    "body": "slot_C_L3_C3_hualushui",
+    "object_kind": "hualushui",
+    "gs_ply": "shentoon/hualushui_fit.ply",
+    "world_position": [
+      0.31,
+      3.415,
+      1.35
+    ]
+  },
+  {
+    "shelf": "D",
+    "level": "L1",
+    "column": "C1",
+    "aruco_id": 27,
+    "body": "slot_D_L1_C1_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      0.668,
+      3.415,
+      0.675
+    ]
+  },
+  {
+    "shelf": "D",
+    "level": "L1",
+    "column": "C2",
+    "aruco_id": 28,
+    "body": "slot_D_L1_C2_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      0.978,
+      3.415,
+      0.675
+    ]
+  },
+  {
+    "shelf": "D",
+    "level": "L1",
+    "column": "C3",
+    "aruco_id": 29,
+    "body": "slot_D_L1_C3_yinlu",
+    "object_kind": "yinlu",
+    "gs_ply": "shentoon/yinlu_congee_fit.ply",
+    "world_position": [
+      1.288,
+      3.415,
+      0.65075
+    ]
+  },
+  {
+    "shelf": "D",
+    "level": "L2",
+    "column": "C1",
+    "aruco_id": 30,
+    "body": "slot_D_L2_C1_qingfengchouzhi",
+    "object_kind": "qingfengchouzhi",
+    "gs_ply": "shentoon/qingfengchouzhi_fit.ply",
+    "world_position": [
+      0.668,
+      3.415,
+      0.9375
+    ]
+  },
+  {
+    "shelf": "D",
+    "level": "L2",
+    "column": "C2",
+    "aruco_id": 31,
+    "body": "slot_D_L2_C2_yinlu",
+    "object_kind": "yinlu",
+    "gs_ply": "shentoon/yinlu_congee_fit.ply",
+    "world_position": [
+      0.978,
+      3.415,
+      0.95075
+    ]
+  },
+  {
+    "shelf": "D",
+    "level": "L2",
+    "column": "C3",
+    "aruco_id": 32,
+    "body": "slot_D_L2_C3_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      1.288,
+      3.415,
+      0.975
+    ]
+  },
+  {
+    "shelf": "D",
+    "level": "L3",
+    "column": "C1",
+    "aruco_id": 33,
+    "body": "slot_D_L3_C1_moshuiping",
+    "object_kind": "moshuiping",
+    "gs_ply": "shentoon/moshuiping_fit.ply",
+    "world_position": [
+      0.668,
+      3.415,
+      1.265
+    ]
+  },
+  {
+    "shelf": "D",
+    "level": "L3",
+    "column": "C2",
+    "aruco_id": 34,
+    "body": "slot_D_L3_C2_qingfengchouzhi",
+    "object_kind": "qingfengchouzhi",
+    "gs_ply": "shentoon/qingfengchouzhi_fit.ply",
+    "world_position": [
+      0.978,
+      3.415,
+      1.2375
+    ]
+  },
+  {
+    "shelf": "D",
+    "level": "L3",
+    "column": "C3",
+    "aruco_id": 35,
+    "body": "slot_D_L3_C3_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      1.288,
+      3.415,
+      1.275
+    ]
+  },
+  {
+    "shelf": "E",
+    "level": "L1",
+    "column": "C1",
+    "aruco_id": 36,
+    "body": "slot_E_L1_C1_qingfengchouzhi",
+    "object_kind": "qingfengchouzhi",
+    "gs_ply": "shentoon/qingfengchouzhi_fit.ply",
+    "world_position": [
+      1.645,
+      3.415,
+      0.6375
+    ]
+  },
+  {
+    "shelf": "E",
+    "level": "L1",
+    "column": "C2",
+    "aruco_id": 37,
+    "body": "slot_E_L1_C2_qingfengchouzhi",
+    "object_kind": "qingfengchouzhi",
+    "gs_ply": "shentoon/qingfengchouzhi_fit.ply",
+    "world_position": [
+      1.955,
+      3.415,
+      0.6375
+    ]
+  },
+  {
+    "shelf": "E",
+    "level": "L1",
+    "column": "C3",
+    "aruco_id": 38,
+    "body": "slot_E_L1_C3_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      2.265,
+      3.415,
+      0.675
+    ]
+  },
+  {
+    "shelf": "E",
+    "level": "L2",
+    "column": "C1",
+    "aruco_id": 39,
+    "body": "slot_E_L2_C1_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      1.645,
+      3.415,
+      0.975
+    ]
+  },
+  {
+    "shelf": "E",
+    "level": "L2",
+    "column": "C2",
+    "aruco_id": 40,
+    "body": "slot_E_L2_C2_hualushui",
+    "object_kind": "hualushui",
+    "gs_ply": "shentoon/hualushui_fit.ply",
+    "world_position": [
+      1.955,
+      3.415,
+      1.05
+    ]
+  },
+  {
+    "shelf": "E",
+    "level": "L2",
+    "column": "C3",
+    "aruco_id": 41,
+    "body": "slot_E_L2_C3_yibao_water",
+    "object_kind": "yibao_water",
+    "gs_ply": "shentoon/yibao_water_fit.ply",
+    "world_position": [
+      2.265,
+      3.415,
+      0.975
+    ]
+  },
+  {
+    "shelf": "E",
+    "level": "L3",
+    "column": "C1",
+    "aruco_id": 42,
+    "body": "slot_E_L3_C1_hualushui",
+    "object_kind": "hualushui",
+    "gs_ply": "shentoon/hualushui_fit.ply",
+    "world_position": [
+      1.645,
+      3.415,
+      1.35
+    ]
+  },
+  {
+    "shelf": "E",
+    "level": "L3",
+    "column": "C2",
+    "aruco_id": 43,
+    "body": "slot_E_L3_C2_hualushui",
+    "object_kind": "hualushui",
+    "gs_ply": "shentoon/hualushui_fit.ply",
+    "world_position": [
+      1.955,
+      3.415,
+      1.35
+    ]
+  },
+  {
+    "shelf": "E",
+    "level": "L3",
+    "column": "C3",
+    "aruco_id": 44,
+    "body": "slot_E_L3_C3_starbucks_box",
+    "object_kind": "starbucks_box",
+    "gs_ply": "shentoon/starbucks_box_fit.ply",
+    "world_position": [
+      2.265,
+      3.415,
+      1.2875
+    ]
+  }
+]

@@ -12,6 +12,7 @@ data
 *_pb2*.py
 .vscode
 *.json
+!examples/supermarket_sorting/retail_competition_layout.json
 *.safetensors
 *.pth
 discoverse/randomain/models

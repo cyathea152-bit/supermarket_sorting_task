@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "discoverse"
 dynamic = ["version"]
-description = "DISCOVERSE: 一个基于3DGS的高效机器人仿真框架，用于复杂高保真环境中的机器人学习"
+description = "Supermarket Sorting Task built on a trimmed DISCOVERSE runtime"
 readme = "README_zh.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
