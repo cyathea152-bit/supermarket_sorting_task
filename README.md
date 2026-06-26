@@ -88,9 +88,3 @@ source .venv/bin/activate
 python examples/supermarket_sorting/supermarket_sorting_client.py
 ```
 
-## 说明
-
-- 任务自己的 MJCF、layout、mesh、texture、3DGS 资产都放在 `examples/supermarket_sorting/` 内。
-- `supermarket_sorting_server.py` 会自动把 `examples/supermarket_sorting/models` 设置为 `DISCOVERSE_ASSETS_DIR`，不依赖用户额外设置模型路径。
-- 红色半透明商品碰撞盒保持可见，配送桌保持可见；配送桌桌面接触参数已调软，用于减轻最终放置物体时的抖动。
-- 本仓库保留 DISCOVERSE 的基础结构和 `pyproject.toml` 安装方式；超市分拣任务作为一个普通 example 运行。

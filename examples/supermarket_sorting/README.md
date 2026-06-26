@@ -191,13 +191,3 @@ client 发布：
 /right_arm_forward_position_controller/commands
 ```
 
-## 资产说明
-
-本示例保留运行超市分拣任务需要的最小资产：
-
-- MMK2 底盘、升降、头部、双臂 MJCF 和 mesh。
-- MMK2 与 Airbot Play 机器人 link 的 3DGS 资产。
-- 超市商品与背景 3DGS：清风抽纸、魔术瓶、银鹭八宝粥、星巴克盒、怡宝水、花露水、背景点云。
-- `retail_aruco_4x4_id_00.png` 到 `retail_aruco_4x4_id_44.png`，用于货架 ArUco 标记。
-
-`mjcf/retail_competition.xml` 中红色半透明商品碰撞盒保持可见，配送桌保持可见；配送桌桌面接触参数已调软，用于减轻最终放置物体时的抖动。
