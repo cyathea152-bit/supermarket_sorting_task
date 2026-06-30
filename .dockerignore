@@ -17,6 +17,8 @@ build
 dist
 downloads
 data
+examples/supermarket_sorting/perception/dataset
+examples/supermarket_sorting/perception/runs
 *.log
 *MUJOCO_LOG.TXT
 *.mp4
