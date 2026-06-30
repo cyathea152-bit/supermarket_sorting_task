@@ -14,6 +14,8 @@ from pathlib import Path
 import numpy as np
 from scipy.spatial.transform import Rotation
 import rclpy
+from rclpy._rclpy_pybind11 import RCLError
+from rclpy.executors import ExternalShutdownException
 
 # 可迁移:从脚本自身位置推导示例目录和仓库根目录
 TASK_DIR = Path(__file__).resolve().parent
@@ -32,6 +34,13 @@ SOURCE_XML = TASK_DIR / "mjcf" / "retail_competition.xml"
 RUNTIME_XML = Path("/tmp/retail_competition_ros2_runtime.xml")
 LAYOUT_JSON = TASK_DIR / "retail_competition_layout.json"
 START_XY = np.array([1.92, -3.17], dtype=float)   # 出发区
+
+
+def env_flag(name, default):
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
 def local_robot_gs_model_dict():
@@ -55,7 +64,9 @@ def write_runtime_xml():
 def build_config():
     cfg = MMK2Cfg()
     cfg.mjcf_file_path = write_runtime_xml()
-    cfg.use_gaussian_renderer = True
+    cfg.use_gaussian_renderer = env_flag("SUPERMARKET_USE_GS", True)
+    cfg.enable_render = env_flag("SUPERMARKET_ENABLE_RENDER", True)
+    cfg.headless = env_flag("SUPERMARKET_HEADLESS", False)
 
     # 货架场景的 3DGS 绑定:保留 MMK2Cfg 默认的机器人 link 绑定,追加 background + 货架物体
     layout = json.loads(LAYOUT_JSON.read_text())
@@ -76,6 +87,13 @@ def build_config():
     return cfg
 
 
+def spin_node(node):
+    try:
+        rclpy.spin(node)
+    except (ExternalShutdownException, RCLError):
+        pass
+
+
 def main():
     rclpy.init()
     np.set_printoptions(precision=3, suppress=True, linewidth=500)
@@ -83,7 +101,7 @@ def main():
     exec_node = MMK2ROS2(build_config())
     exec_node.reset()
 
-    spin_thread = threading.Thread(target=lambda: rclpy.spin(exec_node), daemon=True)
+    spin_thread = threading.Thread(target=spin_node, args=(exec_node,), daemon=True)
     spin_thread.start()
 
     pubtopic_thread = threading.Thread(target=exec_node.thread_pubros2topic, args=(24,), daemon=True)
@@ -96,7 +114,8 @@ def main():
         pass
     finally:
         exec_node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

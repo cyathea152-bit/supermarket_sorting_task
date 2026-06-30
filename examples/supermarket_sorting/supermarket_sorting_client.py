@@ -20,15 +20,18 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Float64MultiArray
+from collections import deque
+
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import JointState
+from vision_msgs.msg import Detection3DArray
 
 from discoverse.utils import step_func
 from mmk2_kdl import MMK2Kdl
 
 # ---- scene constants (world frame, +X east / +Y north). Object/table poses are
 #      hardcoded ground truth for this fixed scene; swap for perception later. ----
-OBJECT_WORLD = np.array([0.978, 3.415, 0.951])   # slot_D_L2_C2_yinlu
+_OBJECT_WORLD_DEFAULT = np.array([0.978, 3.415, 0.951])  # slot_D_L2_C2_yinlu (fallback)
 TABLE_ORIGIN = np.array([-1.92, -3.17, 0.0])     # delivery_table; top surface z~0.80
 YAW_NORTH = math.pi / 2.0
 YAW_SOUTH = -math.pi / 2.0
@@ -63,8 +66,17 @@ GRASP_ROT = np.array([
     [-0.00084802,  0.02918586,  0.99957364],
 ])
 GRASP_OFFSET = np.array([0.00, -0.01, 0.023])     # gripper vs object at grasp
-DEPLOY_WORLD = np.array([0.967, 3.10, 0.974])     # deploy further forward -> base stops further back -> elbow stays out of the shelf
-CREEP_STOP_Y = OBJECT_WORLD[1] + 0.005            # stop the creep when gripper reaches here (~object center, 居中夹取)
+# Open-space deploy pose & creep-stop, kept as OFFSETS from the (perceived) object so the
+# grasp METHOD stays byte-identical to the hardcoded baseline while the target now comes
+# from vision. Captured from the original constants against _OBJECT_WORLD_DEFAULT:
+#   DEPLOY_WORLD(0.967,3.10,0.974) - OBJECT(0.978,3.415,0.951) = (-0.011,-0.315,0.023)
+DEPLOY_OFFSET = np.array([-0.011, -0.315, 0.023]) # deploy further forward -> base stops further back -> elbow stays out of the shelf
+CREEP_STOP_DY = 0.005                             # stop the creep when gripper reaches here (~object center, 居中夹取)
+
+# perception gating (NAV->DEPLOY): lock the target from vision before posing the arm
+DETECT_DWELL = 1.0          # s to let head settle + detections accumulate before locking
+DETECT_MIN_SAMPLES = 5      # min detection frames to trust vision (else fall back to default GT)
+TARGET_MATCH_RADIUS = 0.20  # m: accept detections within this xy-radius of the target slot
 CREEP_SPEED = 0.06                                # m/s forward while creeping into the shelf
 CREEP_YAW_KP = 4.0                                # hold heading firmly so the creep goes dead straight
 LIFT_AMOUNT = 0.05                                # 夹住后竖直抬起量(减小 slide),让物体离开隔板再倒车
@@ -132,6 +144,16 @@ class PickPlaceClient(Node):
         self.state_t0 = self.now()
         self.arm_target_set = False
 
+        # ---- perception: target locked from /yinlu/detections (world frame) ----
+        # OBJECT_WORLD is resolved once at DEPLOY from accumulated detections; until then
+        # it holds the default GT so logging/forward refs are always valid. CREEP_STOP_Y
+        # and DEPLOY_WORLD are derived from it (offsets keep the grasp method unchanged).
+        self.OBJECT_WORLD = _OBJECT_WORLD_DEFAULT.copy()
+        self.DEPLOY_WORLD = self.OBJECT_WORLD + DEPLOY_OFFSET
+        self.CREEP_STOP_Y = self.OBJECT_WORLD[1] + CREEP_STOP_DY
+        self.det_buf = deque(maxlen=30)   # recent detections matching the target slot (world xyz)
+        self.target_locked = False
+
         # gains
         self.pos_tol, self.turn_tol = 0.06, 0.03
         self.max_lin, self.max_ang = 0.45, 1.2
@@ -150,6 +172,7 @@ class PickPlaceClient(Node):
         self.rarm_pub = self.create_publisher(Float64MultiArray, "/right_arm_forward_position_controller/commands", 5)
         self.create_subscription(Odometry, "/slamware_ros_sdk_server_node/odom", self.odom_cb, 10)
         self.create_subscription(JointState, "/joint_states", self.js_cb, 10)
+        self.create_subscription(Detection3DArray, "/yinlu/detections", self.det_cb, 10)
 
         self.timer = self.create_timer(self.dt, self.tick)
         self.last_log = 0.0
@@ -168,6 +191,49 @@ class PickPlaceClient(Node):
     def js_cb(self, msg):
         self.jpos = {n: msg.position[i] for i, n in enumerate(msg.name) if i < len(msg.position)}
         self.jvel = {n: msg.velocity[i] for i, n in enumerate(msg.name) if i < len(msg.velocity)}
+
+    def det_cb(self, msg):
+        """Accumulate /yinlu/detections (world frame) for the target slot.
+
+        Each Detection3D.results[0].pose.pose.position is in world frame.
+        We accept detections within TARGET_MATCH_RADIUS xy-distance of the
+        default slot position so we track the right bottle even if there are
+        multiple yinlu in the scene.  Once DETECT_MIN_SAMPLES accumulate the
+        median is written to self.OBJECT_WORLD; all grasp-derived params follow.
+        """
+        if self.target_locked:
+            return   # target already fixed for this run; ignore further updates
+        for det in msg.detections:
+            if not det.results:
+                continue
+            pos = det.results[0].pose.pose.position
+            pw = np.array([pos.x, pos.y, pos.z])
+            # gate by proximity to the expected target slot (xy plane)
+            if np.linalg.norm(pw[:2] - _OBJECT_WORLD_DEFAULT[:2]) > TARGET_MATCH_RADIUS:
+                continue
+            self.det_buf.append(pw)
+
+    def _lock_target(self):
+        """Lock OBJECT_WORLD from the detection buffer, or keep default GT.
+
+        Called once from DEPLOY phase before posing the arm.  Returns True when
+        the lock is applied (either from vision or from the GT fallback).
+        """
+        if len(self.det_buf) >= DETECT_MIN_SAMPLES:
+            arr = np.array(list(self.det_buf))
+            self.OBJECT_WORLD = np.median(arr, axis=0)
+            source = "vision"
+        else:
+            self.OBJECT_WORLD = _OBJECT_WORLD_DEFAULT.copy()
+            source = "GT-fallback"
+        self.DEPLOY_WORLD  = self.OBJECT_WORLD + DEPLOY_OFFSET
+        self.CREEP_STOP_Y  = self.OBJECT_WORLD[1] + CREEP_STOP_DY
+        self.target_locked = True
+        self.get_logger().info(
+            f"[perception] target locked via {source}: "
+            f"OBJECT={np.round(self.OBJECT_WORLD,3)}  "
+            f"CREEP_STOP_Y={self.CREEP_STOP_Y:.4f}  buf_size={len(self.det_buf)}")
+        return True
 
     @property
     def slide_meas(self):
@@ -316,22 +382,31 @@ class PickPlaceClient(Node):
         if self.phase == NAV_SHELF:
             if self.follow_route(ROUTE_TO_SHELF, GRASP_YAW):
                 self.phase, self.deploy_set = DEPLOY, False
+                self.state_t0 = self.now()   # start the detection dwell window fresh
         elif self.phase == DEPLOY:
             # 在黄线开阔处把胳膊摆成抓取姿态(张爪、抓取高度、水平),手臂全程不再动
             self.set_twist(0.0, 0.0)
             if not self.deploy_set:
+                # step 1: aim the head/slide so the shelf is in view, then DWELL while
+                # /yinlu/detections accumulate; only after that lock the target and pose
+                # the arm. The grasp posture itself is unchanged -- only the target source.
                 self.tc[4] = HEAD_PITCH
                 self.tc[2] = SLIDE_GRASP
                 self.tc[18] = GRIP_OPEN
-                self.arm_to(DEPLOY_WORLD)
-                self.deploy_set = True
-                self.state_t0 = self.now()
-            if self.action_done():
+                if not self.target_locked and self.now() - self.state_t0 < DETECT_DWELL:
+                    pass  # hold: let head settle + detections fill the buffer
+                else:
+                    if not self.target_locked:
+                        self._lock_target()
+                    self.arm_to(self.DEPLOY_WORLD)
+                    self.deploy_set = True
+                    self.state_t0 = self.now()
+            if self.deploy_set and self.action_done():
                 self.phase = CREEP
         elif self.phase == CREEP:
             # 保持胳膊不动,车直着往前开,把整个夹爪平移送到物体处
             ee = self.ee_world()
-            if ee[1] < CREEP_STOP_Y:
+            if ee[1] < self.CREEP_STOP_Y:
                 self.set_twist(CREEP_SPEED, CREEP_YAW_KP * wrap_to_pi(GRASP_YAW - self.base_yaw))
             else:
                 self.set_twist(0.0, 0.0)
@@ -386,7 +461,9 @@ class PickPlaceClient(Node):
             self.get_logger().info(
                 f"phase={PHASE_NAME[self.phase]} sub={self.sub_idx} "
                 f"base=({self.base_xy[0]:.2f},{self.base_xy[1]:.2f}) yaw={self.base_yaw:.2f} slide={self.slide_meas:.3f} "
-                f"gripper=({ee[0]:.3f},{ee[1]:.3f},{ee[2]:.3f}) objZ={OBJECT_WORLD[2]:.3f}")
+                f"gripper=({ee[0]:.3f},{ee[1]:.3f},{ee[2]:.3f}) "
+                f"obj=({self.OBJECT_WORLD[0]:.3f},{self.OBJECT_WORLD[1]:.3f},{self.OBJECT_WORLD[2]:.3f}) "
+                f"locked={self.target_locked}")
             self.last_log = self.now()
 
 
