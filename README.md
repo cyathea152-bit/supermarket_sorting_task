@@ -1,6 +1,6 @@
 # Supermarket Sorting Task
 
-超市分拣比赛 ROS2 仿真环境。参赛者启动 server 后，通过 ROS2 话题订阅 RGB-D、里程计、关节状态，并发布控制指令驱动 MMK2 机器人完成货架抓取和桌面放置。
+超市分拣比赛 ROS2 仿真环境。启动 server 后，baseline 通过头部相机**视觉检测** yinlu 瓶子并驱动 MMK2 机器人完成货架抓取和桌面放置。
 
 ## 快速运行
 
@@ -17,7 +17,7 @@ xhost +local:docker
 docker volume create supermarket_sorting_cache
 ```
 
-启动 server：
+### 启动 server
 
 ```bash
 docker run --rm -it \
@@ -38,26 +38,30 @@ docker run --rm -it \
   bash -lc "python3 examples/supermarket_sorting/supermarket_sorting_server.py"
 ```
 
-另开终端运行 baseline client：
+### 启动 baseline（视觉抓取）
+
+baseline 由两个进程组成：**感知节点**从头部相机检测 yinlu 并发布世界坐标到 `/yinlu/detections`，**控制 client** 订阅该坐标驱动机器人抓取。下面用一条命令在同一容器内先后台启动感知节点、再运行 client：
 
 ```bash
 docker run --rm -it \
+  --gpus all \
   --network host \
   --ipc host \
   --name supermarket_sorting_baseline \
   -e ROS_DOMAIN_ID=99 \
   -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp \
   crpi-1pzq998p9m7w0auy.cn-hangzhou.personal.cr.aliyuncs.com/challengecup/smart_retail_client:latest \
-  bash -lc "python3 examples/supermarket_sorting/supermarket_sorting_client.py"
+  bash -lc "python3 examples/supermarket_sorting/perception/yinlu_detect.py --backend yolo & \
+            python3 examples/supermarket_sorting/supermarket_sorting_client.py"
 ```
 
-baseline 会执行固定流程：
+baseline 流程：
 
 ```text
-start zone -> shelf D -> pick slot_D_L2_C2_yinlu -> delivery table -> place
+start zone -> shelf D -> 视觉锁定 yinlu -> creep 抓取 -> delivery table -> place
 ```
 
-参赛者可以保留同一个 server，替换为自己的 ROS2 client。
+机器人不含硬编码物体坐标：导航到货架列后，从视觉检测中选取正前方的 yinlu 锁定为目标（12s 内未检测到则报错退出）。参赛者可以保留同一个 server，替换为自己的 ROS2 client。
 
 停止容器：
 
@@ -70,13 +74,22 @@ docker stop supermarket_sorting_baseline
 
 ```text
 examples/supermarket_sorting/supermarket_sorting_server.py   # 启动 MuJoCo/ROS2 仿真 server
-examples/supermarket_sorting/supermarket_sorting_client.py   # baseline 抓取 client
+examples/supermarket_sorting/supermarket_sorting_client.py   # baseline 控制 client（视觉抓取）
+examples/supermarket_sorting/perception/yinlu_detect.py      # 视觉感知节点，发布 /yinlu/detections
+```
+
+感知节点支持三种检测后端（`--backend`）：
+
+```text
+yolo   训练好的 YOLOv8 权重 perception/checkpoints/yinlu.pt（默认用于 baseline）
+blob   无需权重，黑底场景用连通域检测
+gt     用真值投影，打印逐瓶坐标对齐误差（验证相机->世界变换用）
 ```
 
 server 常用环境变量：
 
 ```text
-ROS_DOMAIN_ID=99              server 和 client 必须一致
+ROS_DOMAIN_ID=99              server 和 baseline 必须一致
 RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 MUJOCO_GL=glfw                开启桌面可视化窗口
 SUPERMARKET_HEADLESS=0        开启可视化界面
@@ -88,7 +101,7 @@ SUPERMARKET_ENABLE_RENDER=1   保持相机图像和深度图发布
 
 ## ROS2 话题
 
-下表列出本场景 server 提供给参赛者使用的全部 ROS2 接口话题。`/rosout`、`/parameter_events` 等 ROS2 自动话题不属于比赛控制/观测接口。
+下表列出本场景的全部 ROS2 接口话题。`/rosout`、`/parameter_events` 等 ROS2 自动话题不属于比赛控制/观测接口。
 
 ### Server 发布
 
@@ -105,7 +118,13 @@ SUPERMARKET_ENABLE_RENDER=1   保持相机图像和深度图发布
 | `/left_camera/color/camera_info` | `sensor_msgs/msg/CameraInfo` | 左腕相机内参。 |
 | `/right_camera/color/image_raw` | `sensor_msgs/msg/Image` | 右腕 RGB 图像，`rgb8`，默认 640x480。 |
 | `/right_camera/color/camera_info` | `sensor_msgs/msg/CameraInfo` | 右腕相机内参。 |
-| `/slamware_ros_sdk_server_node/scan` | `sensor_msgs/msg/LaserScan` | 激光雷达扫描；默认超市场景未开启 lidar，因此默认不发布。 |
+
+### 感知节点发布（baseline 视觉）
+
+| Topic | Type | 说明 |
+| --- | --- | --- |
+| `/yinlu/detections` | `vision_msgs/msg/Detection3DArray` | 检测到的 yinlu 瓶子，位姿为**世界坐标系**（`frame_id=world`）；client 订阅此话题获取抓取目标。 |
+| `/yinlu/result_image` | `sensor_msgs/msg/Image` | 检测可视化叠加图（绿色框 + 世界坐标），`bgr8`，仅供调试。 |
 
 ### Server 订阅
 
@@ -117,7 +136,7 @@ SUPERMARKET_ENABLE_RENDER=1   保持相机图像和深度图发布
 | `/left_arm_forward_position_controller/commands` | `std_msgs/msg/Float64MultiArray` | `[joint1, joint2, joint3, joint4, joint5, joint6, gripper]` |
 | `/right_arm_forward_position_controller/commands` | `std_msgs/msg/Float64MultiArray` | `[joint1, joint2, joint3, joint4, joint5, joint6, gripper]` |
 
-baseline 中 `gripper=1.0` 表示张开夹爪，`gripper=0.2` 是抓取 `slot_D_L2_C2_yinlu` 时使用的闭合命令。
+baseline 中 `gripper=1.0` 表示张开夹爪，`gripper=0.2` 是抓取 yinlu 时使用的闭合命令。
 
 `/joint_states` 关节顺序：
 
@@ -141,48 +160,3 @@ right_arm_joint6
 right_arm_eef_gripper_joint
 ```
 
-## ROS2 调用示例
-
-以下命令需要在与 server 相同 `ROS_DOMAIN_ID` 的容器内运行。
-
-```bash
-ros2 topic list
-ros2 topic echo /slamware_ros_sdk_server_node/odom
-ros2 topic hz /head_camera/color/image_raw
-```
-
-底盘前进：
-
-```bash
-ros2 topic pub -r 10 /cmd_vel geometry_msgs/msg/Twist \
-  "{linear: {x: 0.10, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"
-```
-
-底盘停止：
-
-```bash
-ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist \
-  "{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"
-```
-
-升降和头部：
-
-```bash
-ros2 topic pub --once /spine_forward_position_controller/commands \
-  std_msgs/msg/Float64MultiArray "{data: [0.10]}"
-
-ros2 topic pub --once /head_forward_position_controller/commands \
-  std_msgs/msg/Float64MultiArray "{data: [0.0, -0.6]}"
-```
-
-右臂张开/闭合夹爪：
-
-```bash
-ros2 topic pub --once /right_arm_forward_position_controller/commands \
-  std_msgs/msg/Float64MultiArray \
-  "{data: [0.0, -0.166, 0.032, 0.0, -1.571, -2.223, 1.0]}"
-
-ros2 topic pub --once /right_arm_forward_position_controller/commands \
-  std_msgs/msg/Float64MultiArray \
-  "{data: [0.0, -0.166, 0.032, 0.0, -1.571, -2.223, 0.2]}"
-```

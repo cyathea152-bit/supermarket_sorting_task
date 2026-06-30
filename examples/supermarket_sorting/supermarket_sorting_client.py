@@ -29,16 +29,15 @@ from vision_msgs.msg import Detection3DArray
 from discoverse.utils import step_func
 from mmk2_kdl import MMK2Kdl
 
-# ---- scene constants (world frame, +X east / +Y north). Object/table poses are
-#      hardcoded ground truth for this fixed scene; swap for perception later. ----
-_OBJECT_WORLD_DEFAULT = np.array([0.978, 3.415, 0.951])  # slot_D_L2_C2_yinlu (fallback)
+# ---- scene constants (world frame, +X east / +Y north). The object pose is NOT
+#      hardcoded -- it comes purely from vision (/yinlu/detections). Navigation
+#      waypoints below are task setup ("where the robot goes"), not object poses. ----
 TABLE_ORIGIN = np.array([-1.92, -3.17, 0.0])     # delivery_table; top surface z~0.80
 YAW_NORTH = math.pi / 2.0
 YAW_SOUTH = -math.pi / 2.0
 
-SHELF_X = 0.978
 YELLOW_MID_Y = 2.475          # 抓取区两条黄线(y=1.70/3.25)正中
-GRASP_BASE_X = 0.91           # 抓取列(对准物体 0.978 略偏左)
+GRASP_BASE_X = 0.91           # 抓取列停靠 x(机器人去哪,非物体坐标);视觉再选正前方的 yinlu
 GRASP_YAW = math.pi / 2.0     # 正北:base-creep 法,车直着开进去夹爪不侧偏
 # 直行到黄线中点 -> 左转西行到货架列,停在黄线处(开阔区)部署胳膊,再 creep 进去
 ROUTE_TO_SHELF = [[1.92, YELLOW_MID_Y], [GRASP_BASE_X, YELLOW_MID_Y]]
@@ -66,17 +65,20 @@ GRASP_ROT = np.array([
     [-0.00084802,  0.02918586,  0.99957364],
 ])
 GRASP_OFFSET = np.array([0.00, -0.01, 0.023])     # gripper vs object at grasp
-# Open-space deploy pose & creep-stop, kept as OFFSETS from the (perceived) object so the
-# grasp METHOD stays byte-identical to the hardcoded baseline while the target now comes
-# from vision. Captured from the original constants against _OBJECT_WORLD_DEFAULT:
-#   DEPLOY_WORLD(0.967,3.10,0.974) - OBJECT(0.978,3.415,0.951) = (-0.011,-0.315,0.023)
+# Open-space deploy pose & creep-stop, kept as OFFSETS from the PERCEIVED object so the
+# grasp METHOD stays byte-identical to the original baseline while the target comes purely
+# from vision. (Offsets measured from the original teleop-tuned constants.)
 DEPLOY_OFFSET = np.array([-0.011, -0.315, 0.023]) # deploy further forward -> base stops further back -> elbow stays out of the shelf
 CREEP_STOP_DY = 0.005                             # stop the creep when gripper reaches here (~object center, 居中夹取)
 
-# perception gating (NAV->DEPLOY): lock the target from vision before posing the arm
-DETECT_DWELL = 1.0          # s to let head settle + detections accumulate before locking
-DETECT_MIN_SAMPLES = 5      # min detection frames to trust vision (else fall back to default GT)
-TARGET_MATCH_RADIUS = 0.20  # m: accept detections within this xy-radius of the target slot
+# perception target selection (pure vision; NO hardcoded object pose):
+# the robot navigates to the shelf column, then grasps the yinlu directly ahead.
+# Selection uses only the robot's own footprint frame -- the detection with the
+# smallest lateral offset, at a plausible forward shelf depth.
+DETECT_MIN_SAMPLES = 5            # frames to accumulate before trusting the lock
+DETECT_TIMEOUT = 12.0            # s; abort the run if no yinlu is locked within this
+REACH_FWD_MIN, REACH_FWD_MAX = 0.3, 1.5   # m ahead of base: plausible shelf depth
+REACH_LATERAL_MAX = 0.45         # m sideways: reject yinlu in other columns
 CREEP_SPEED = 0.06                                # m/s forward while creeping into the shelf
 CREEP_YAW_KP = 4.0                                # hold heading firmly so the creep goes dead straight
 LIFT_AMOUNT = 0.05                                # 夹住后竖直抬起量(减小 slide),让物体离开隔板再倒车
@@ -144,14 +146,14 @@ class PickPlaceClient(Node):
         self.state_t0 = self.now()
         self.arm_target_set = False
 
-        # ---- perception: target locked from /yinlu/detections (world frame) ----
-        # OBJECT_WORLD is resolved once at DEPLOY from accumulated detections; until then
-        # it holds the default GT so logging/forward refs are always valid. CREEP_STOP_Y
-        # and DEPLOY_WORLD are derived from it (offsets keep the grasp method unchanged).
-        self.OBJECT_WORLD = _OBJECT_WORLD_DEFAULT.copy()
-        self.DEPLOY_WORLD = self.OBJECT_WORLD + DEPLOY_OFFSET
-        self.CREEP_STOP_Y = self.OBJECT_WORLD[1] + CREEP_STOP_DY
-        self.det_buf = deque(maxlen=30)   # recent detections matching the target slot (world xyz)
+        # ---- perception: target locked PURELY from /yinlu/detections (world frame) ----
+        # No hardcoded object pose. OBJECT_WORLD/DEPLOY_WORLD/CREEP_STOP_Y stay None until a
+        # yinlu is detected and locked at DEPLOY; the run aborts if none is seen within
+        # DETECT_TIMEOUT. CREEP_STOP_Y/DEPLOY_WORLD are then derived via the grasp offsets.
+        self.OBJECT_WORLD = None
+        self.DEPLOY_WORLD = None
+        self.CREEP_STOP_Y = None
+        self.det_buf = deque(maxlen=30)   # recent detections of the yinlu directly ahead (world xyz)
         self.target_locked = False
 
         # gains
@@ -193,46 +195,49 @@ class PickPlaceClient(Node):
         self.jvel = {n: msg.velocity[i] for i, n in enumerate(msg.name) if i < len(msg.velocity)}
 
     def det_cb(self, msg):
-        """Accumulate /yinlu/detections (world frame) for the target slot.
+        """Accumulate the yinlu directly ahead of the parked base (world frame).
 
-        Each Detection3D.results[0].pose.pose.position is in world frame.
-        We accept detections within TARGET_MATCH_RADIUS xy-distance of the
-        default slot position so we track the right bottle even if there are
-        multiple yinlu in the scene.  Once DETECT_MIN_SAMPLES accumulate the
-        median is written to self.OBJECT_WORLD; all grasp-derived params follow.
+        Pure vision -- there is NO prior object pose. Among all yinlu detections we
+        keep the one most directly ahead of the robot (smallest lateral offset in the
+        footprint frame, at a plausible forward shelf depth). Because the robot has
+        navigated to the target shelf column, that bottle is the intended target.
+        Selection uses only the robot's own frame, never a hardcoded object coordinate.
         """
-        if self.target_locked:
-            return   # target already fixed for this run; ignore further updates
+        if self.target_locked or self.base_xy is None:
+            return
+        best, best_lat = None, REACH_LATERAL_MAX
         for det in msg.detections:
             if not det.results:
                 continue
             pos = det.results[0].pose.pose.position
             pw = np.array([pos.x, pos.y, pos.z])
-            # gate by proximity to the expected target slot (xy plane)
-            if np.linalg.norm(pw[:2] - _OBJECT_WORLD_DEFAULT[:2]) > TARGET_MATCH_RADIUS:
-                continue
-            self.det_buf.append(pw)
+            fp = self.world_to_footprint(pw)   # fp[0]=forward (ahead), fp[1]=lateral (left+)
+            fwd, lat = fp[0], abs(fp[1])
+            if fwd < REACH_FWD_MIN or fwd > REACH_FWD_MAX:
+                continue                       # wrong depth: floor, far shelf, etc.
+            if lat < best_lat:
+                best_lat, best = lat, pw       # most centered bottle wins
+        if best is not None:
+            self.det_buf.append(best)
 
     def _lock_target(self):
-        """Lock OBJECT_WORLD from the detection buffer, or keep default GT.
+        """Lock OBJECT_WORLD from the accumulated detections. Returns True once locked.
 
-        Called once from DEPLOY phase before posing the arm.  Returns True when
-        the lock is applied (either from vision or from the GT fallback).
+        Called from DEPLOY before posing the arm. No fallback: if fewer than
+        DETECT_MIN_SAMPLES have arrived it returns False and DEPLOY keeps waiting
+        (until DETECT_TIMEOUT, then the run aborts).
         """
-        if len(self.det_buf) >= DETECT_MIN_SAMPLES:
-            arr = np.array(list(self.det_buf))
-            self.OBJECT_WORLD = np.median(arr, axis=0)
-            source = "vision"
-        else:
-            self.OBJECT_WORLD = _OBJECT_WORLD_DEFAULT.copy()
-            source = "GT-fallback"
+        if len(self.det_buf) < DETECT_MIN_SAMPLES:
+            return False
+        arr = np.array(list(self.det_buf))
+        self.OBJECT_WORLD = np.median(arr, axis=0)
         self.DEPLOY_WORLD  = self.OBJECT_WORLD + DEPLOY_OFFSET
         self.CREEP_STOP_Y  = self.OBJECT_WORLD[1] + CREEP_STOP_DY
         self.target_locked = True
         self.get_logger().info(
-            f"[perception] target locked via {source}: "
+            f"[perception] yinlu locked from vision: "
             f"OBJECT={np.round(self.OBJECT_WORLD,3)}  "
-            f"CREEP_STOP_Y={self.CREEP_STOP_Y:.4f}  buf_size={len(self.det_buf)}")
+            f"CREEP_STOP_Y={self.CREEP_STOP_Y:.4f}  samples={len(self.det_buf)}")
         return True
 
     @property
@@ -387,20 +392,22 @@ class PickPlaceClient(Node):
             # 在黄线开阔处把胳膊摆成抓取姿态(张爪、抓取高度、水平),手臂全程不再动
             self.set_twist(0.0, 0.0)
             if not self.deploy_set:
-                # step 1: aim the head/slide so the shelf is in view, then DWELL while
-                # /yinlu/detections accumulate; only after that lock the target and pose
-                # the arm. The grasp posture itself is unchanged -- only the target source.
+                # Aim head/slide so the shelf is in view, accumulate /yinlu/detections,
+                # then lock the target PURELY from vision and pose the arm. No hardcoded
+                # fallback: if no yinlu is seen within DETECT_TIMEOUT, abort the run.
                 self.tc[4] = HEAD_PITCH
                 self.tc[2] = SLIDE_GRASP
                 self.tc[18] = GRIP_OPEN
-                if not self.target_locked and self.now() - self.state_t0 < DETECT_DWELL:
-                    pass  # hold: let head settle + detections fill the buffer
-                else:
-                    if not self.target_locked:
-                        self._lock_target()
+                if self._lock_target():
                     self.arm_to(self.DEPLOY_WORLD)
                     self.deploy_set = True
                     self.state_t0 = self.now()
+                elif self.now() - self.state_t0 > DETECT_TIMEOUT:
+                    self.get_logger().fatal(
+                        f"no yinlu detected within {DETECT_TIMEOUT:.0f}s "
+                        f"(samples={len(self.det_buf)}); aborting. Is the perception node "
+                        f"(yinlu_detect.py) running and publishing /yinlu/detections?")
+                    raise SystemExit(1)
             if self.deploy_set and self.action_done():
                 self.phase = CREEP
         elif self.phase == CREEP:
@@ -458,12 +465,14 @@ class PickPlaceClient(Node):
 
         if self.now() - self.last_log > 1.0:
             ee = self.ee_world()
+            obj = self.OBJECT_WORLD
+            obj_str = (f"({obj[0]:.3f},{obj[1]:.3f},{obj[2]:.3f})"
+                       if obj is not None else "unlocked")
             self.get_logger().info(
                 f"phase={PHASE_NAME[self.phase]} sub={self.sub_idx} "
                 f"base=({self.base_xy[0]:.2f},{self.base_xy[1]:.2f}) yaw={self.base_yaw:.2f} slide={self.slide_meas:.3f} "
                 f"gripper=({ee[0]:.3f},{ee[1]:.3f},{ee[2]:.3f}) "
-                f"obj=({self.OBJECT_WORLD[0]:.3f},{self.OBJECT_WORLD[1]:.3f},{self.OBJECT_WORLD[2]:.3f}) "
-                f"locked={self.target_locked}")
+                f"obj={obj_str} locked={self.target_locked}")
             self.last_log = self.now()
 
 
